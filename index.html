@@ -402,11 +402,85 @@ body { background:var(--bg); font-family:var(--ff-body); color:var(--text-1); }
 .primer-fact:last-child { border-bottom:none; }
 .primer-ico { color:var(--accent); flex-shrink:0; font-family:var(--ff-mono); font-size:12px; }
 
-/* ── SEQUENTIAL REVEAL ────────────────────────── */
+/* ── TYPEWRITER ───────────────────────────────── */
+.tw-cursor { display:inline-block; width:2px; height:1em; background:var(--text-3); vertical-align:text-bottom; margin-left:1px; animation:twBlink .7s step-end infinite; }
+@keyframes twBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ── MECHANISM CHAIN ANIMATION ────────────────── */
+.mech-node { opacity:0; transform:translateY(6px); transition:opacity 0.35s ease, transform 0.35s ease; }
+.mech-node.visible { opacity:1; transform:translateY(0); }
+.mech-arrow-animated { opacity:0; transition:opacity 0.2s ease; }
+.mech-arrow-animated.visible { opacity:1; }
+
+/* ── WRONG ANSWER FLASH ───────────────────────── */
+.cost-flash { position:fixed; inset:0; pointer-events:none; z-index:9999; }
+.cost-flash::before { content:''; position:absolute; inset:0; border:3px solid var(--red); border-radius:0; opacity:0; animation:costFlash .55s ease forwards; }
+@keyframes costFlash {
+  0%  { opacity:0; }
+  15% { opacity:.65; }
+  100%{ opacity:0; }
+}
 .read-prompt { display:flex; justify-content:flex-end; margin-top:var(--sp-3); }
 .reveal-animate { animation:fadeUp .3s ease; }
 
-/* ── BAR CHART (decomp) ───────────────────────── */
+/* ── HOW SCREEN — ARJUN PROFILE CARD ─────────── */
+.arjun-profile { display:flex; gap:16px; align-items:flex-start; padding:var(--sp-4) var(--sp-5); background:var(--bg); border:1.5px solid var(--accent-border); border-radius:var(--r-md); margin-bottom:var(--sp-3); }
+.arjun-av-lg { width:48px; height:48px; border-radius:10px; background:rgba(180,100,30,.12); color:#B46B1A; display:flex; align-items:center; justify-content:center; font-family:var(--ff-display); font-size:16px; font-weight:800; flex-shrink:0; }
+.arjun-meta { flex:1; }
+.arjun-meta-name { font-family:var(--ff-display); font-size:15px; font-weight:700; color:var(--text-1); }
+.arjun-meta-title { font-family:var(--ff-mono); font-size:var(--fs-micro); color:var(--text-3); letter-spacing:.06em; margin-top:2px; }
+.arjun-meta-bio { font-size:var(--fs-body-sm); color:var(--text-2); margin-top:8px; line-height:var(--lh-body); }
+.arjun-role-row { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+.arjun-role-pill { font-family:var(--ff-mono); font-size:var(--fs-micro); padding:3px 8px; border-radius:20px; letter-spacing:.06em; }
+.pill-1 { background:var(--accent-bg); color:var(--accent); border:1px solid var(--accent-border); }
+.pill-2 { background:var(--surface); color:var(--text-3); border:1px solid var(--border); }
+/* ── HOW SCREEN — EVAL MECHANICS ─────────────── */
+.eval-row { display:flex; gap:14px; align-items:flex-start; padding:10px 0; border-bottom:1px solid var(--border); }
+.eval-row:last-child { border-bottom:none; }
+.eval-ico { font-size:16px; flex-shrink:0; width:24px; text-align:center; margin-top:1px; }
+.eval-body { flex:1; }
+.eval-title { font-size:var(--fs-body-sm); font-weight:600; color:var(--text-1); margin-bottom:2px; }
+.eval-desc { font-size:var(--fs-caption); color:var(--text-2); line-height:1.6; }
+/* ── PRIORITY MATRIX (Act3 Rank) ─────────────── */
+.priority-matrix { display:flex; flex-direction:column; gap:0; border:1px solid var(--border); border-radius:var(--r-md); overflow:hidden; margin-top:var(--sp-3); }
+.pm-header { display:grid; grid-template-columns:1.8fr .8fr .8fr .7fr; padding:8px 14px; background:var(--surface-2); border-bottom:1px solid var(--border); }
+.pm-header span { font-family:var(--ff-mono); font-size:var(--fs-micro); color:var(--text-3); letter-spacing:.1em; text-transform:uppercase; }
+.pm-row { display:grid; grid-template-columns:1.8fr .8fr .8fr .7fr; padding:10px 14px; border-bottom:1px solid var(--border); align-items:center; }
+.pm-row:last-child { border-bottom:none; }
+.pm-row.pm-top { background:var(--green-bg); }
+.pm-name { font-size:var(--fs-body-sm); color:var(--text-1); }
+.pm-top .pm-name { font-weight:600; color:var(--green); }
+.pm-badge { display:inline-block; font-family:var(--ff-mono); font-size:10px; padding:2px 7px; border-radius:20px; }
+.pm-badge.high { background:var(--green-bg); color:var(--green); border:1px solid var(--green-border); }
+.pm-badge.med { background:var(--amber-bg); color:var(--amber); border:1px solid var(--amber-border); }
+.pm-badge.low { background:var(--surface-2); color:var(--text-3); border:1px solid var(--border); }
+.pm-badge.fast { background:var(--blue-bg); color:var(--blue); border:1px solid var(--blue-border); }
+.pm-badge.slow { background:var(--surface-2); color:var(--text-3); border:1px solid var(--border); }
+.pm-rank { font-family:var(--ff-mono); font-size:var(--fs-caption); color:var(--text-3); }
+.pm-top .pm-rank { color:var(--green); font-weight:600; }
+/* ── GATE CONTEXT STRIP ───────────────────────── */
+.gate-context { font-size:var(--fs-caption); font-family:var(--ff-mono); color:var(--text-3); letter-spacing:.06em; padding:8px 12px; background:var(--surface); border-left:2px solid var(--border-mid); border-radius:0 var(--r-sm) var(--r-sm) 0; margin-bottom:12px; line-height:1.6; }
+/* ── ACT6 EVAL CEREMONY ───────────────────────── */
+.eval-ceremony { text-align:center; padding:var(--sp-5) 0 var(--sp-4); }
+.eval-ceremony-av { width:52px; height:52px; border-radius:12px; background:rgba(180,100,30,.12); color:#B46B1A; display:flex; align-items:center; justify-content:center; font-family:var(--ff-display); font-size:18px; font-weight:800; margin:0 auto var(--sp-3); }
+.eval-ceremony-title { font-family:var(--ff-display); font-size:var(--fs-h3); font-weight:700; color:var(--text-1); margin-bottom:4px; }
+.eval-ceremony-sub { font-size:var(--fs-caption); color:var(--text-3); font-family:var(--ff-mono); }
+.reading-dot { width:5px; height:5px; border-radius:50%; background:var(--accent); animation:pulse 1.4s ease infinite; }
+.reading-dot:nth-child(2) { animation-delay:.25s; }
+.reading-dot:nth-child(3) { animation-delay:.5s; }
+/* ── LEAN DOTS (Debrief) ──────────────────────── */
+.lean-vis { display:flex; align-items:flex-start; gap:var(--sp-5); margin:var(--sp-3) 0; flex-wrap:wrap; }
+.lean-vis-col { display:flex; flex-direction:column; gap:6px; }
+.lean-vis-lbl { font-family:var(--ff-mono); font-size:var(--fs-micro); color:var(--text-3); letter-spacing:.08em; text-transform:uppercase; }
+.lean-dots-row { display:flex; gap:6px; }
+.lean-d { width:14px; height:14px; border-radius:50%; }
+.lean-d.used { background:var(--accent); }
+.lean-d.empty { background:var(--border); }
+.lean-d.ideal { background:var(--green); }
+/* ── SPARKLINE ────────────────────────────────── */
+.sparkline-wrap { margin:var(--sp-3) 0 var(--sp-2); }
+.sparkline-lbl { font-family:var(--ff-mono); font-size:var(--fs-micro); color:var(--text-3); letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; }
+
 .bar-chart-wrap { margin-top:var(--sp-3); }
 .bar-chart-label { font-family:var(--ff-mono); font-size:var(--fs-micro); color:var(--text-3); letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px; }
 .bar-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
@@ -454,6 +528,63 @@ body { background:var(--bg); font-family:var(--ff-body); color:var(--text-1); }
   .email-row { flex-direction:column; }
   .mechanism-flow { flex-direction:column; gap:4px; }
   .phase-row { flex-direction:column; gap:6px; }
+}
+
+/* ── LANDING PAGE ─────────────────────────────── */
+.landing { min-height:100vh; background:var(--bg); display:flex; flex-direction:column; animation:fadeIn .4s ease; }
+.landing-nav { display:flex; align-items:center; justify-content:space-between; padding:20px 32px; border-bottom:1px solid var(--border); }
+.landing-wordmark { font-family:var(--ff-display); font-size:15px; font-weight:800; color:var(--text-1); letter-spacing:-.02em; }
+.landing-nav-right { font-family:var(--ff-mono); font-size:var(--fs-micro); color:var(--text-3); letter-spacing:.1em; }
+.landing-hero { max-width:760px; margin:0 auto; padding:72px 32px 56px; text-align:center; }
+.landing-kicker { display:inline-flex; align-items:center; gap:8px; font-family:var(--ff-mono); font-size:var(--fs-micro); color:var(--accent); letter-spacing:.18em; text-transform:uppercase; background:var(--accent-bg); border:1px solid var(--accent-border); border-radius:20px; padding:5px 14px; margin-bottom:var(--sp-5); }
+.landing-kicker-dot { width:5px; height:5px; border-radius:50%; background:var(--accent); animation:pulse 2s ease infinite; }
+.landing-h1 { font-family:var(--ff-display); font-size:clamp(32px,6vw,56px); font-weight:800; line-height:1.06; color:var(--text-1); margin-bottom:var(--sp-4); letter-spacing:-.02em; }
+.landing-h1 em { font-style:normal; color:var(--accent); }
+.landing-sub { font-size:clamp(15px,2vw,18px); color:var(--text-2); line-height:1.7; max-width:520px; margin:0 auto var(--sp-8); }
+.landing-cta-row { display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:var(--sp-3); }
+.btn-hero { font-family:var(--ff-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; font-weight:600; background:var(--accent); color:#fff; border:none; border-radius:var(--r-sm); padding:14px 32px; cursor:pointer; transition:all .15s; display:inline-flex; align-items:center; gap:8px; }
+.btn-hero:hover { background:#c95016; transform:translateY(-1px); box-shadow:0 4px 16px rgba(224,92,26,.3); }
+.landing-meta { font-family:var(--ff-mono); font-size:var(--fs-micro); color:var(--text-3); letter-spacing:.06em; }
+.landing-meta span { margin:0 8px; color:var(--border-mid); }
+.preview-section { max-width:680px; margin:0 auto; padding:0 32px 64px; width:100%; }
+.preview-label { font-family:var(--ff-mono); font-size:var(--fs-micro); color:var(--text-3); letter-spacing:.14em; text-transform:uppercase; text-align:center; margin-bottom:var(--sp-4); }
+.preview-card { background:var(--bg); border:1px solid var(--border); border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--shadow-md); }
+.preview-bar { background:var(--surface-2); border-bottom:1px solid var(--border); padding:10px 16px; display:flex; align-items:center; gap:8px; }
+.preview-dots { display:flex; gap:5px; }
+.preview-dot { width:10px; height:10px; border-radius:50%; }
+.preview-bar-title { font-family:var(--ff-mono); font-size:var(--fs-micro); color:var(--text-3); letter-spacing:.1em; flex:1; text-align:center; }
+.preview-inner { padding:20px; }
+.differ-section { background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:64px 32px; }
+.differ-inner { max-width:680px; margin:0 auto; }
+.differ-h { font-family:var(--ff-display); font-size:var(--fs-h2); font-weight:700; color:var(--text-1); text-align:center; margin-bottom:var(--sp-2); }
+.differ-sub { font-size:var(--fs-body-sm); color:var(--text-3); text-align:center; margin-bottom:var(--sp-8); font-family:var(--ff-mono); }
+.differ-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.differ-card { background:var(--bg); border:1px solid var(--border); border-radius:var(--r-md); padding:var(--sp-4) var(--sp-5); }
+.differ-card.hl { border-color:var(--accent-border); }
+.differ-tag { font-family:var(--ff-mono); font-size:var(--fs-micro); letter-spacing:.12em; text-transform:uppercase; margin-bottom:var(--sp-3); }
+.differ-tag.bad { color:var(--text-3); }
+.differ-tag.good { color:var(--accent); }
+.differ-item { font-size:var(--fs-body-sm); color:var(--text-2); line-height:1.65; padding:6px 0; border-bottom:1px solid var(--border); display:flex; gap:8px; align-items:flex-start; }
+.differ-item:last-child { border-bottom:none; }
+.arjun-section { max-width:680px; margin:0 auto; padding:56px 32px 64px; width:100%; }
+.arjun-full-card { display:flex; gap:24px; align-items:flex-start; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); padding:var(--sp-6); }
+.arjun-av-xl { width:64px; height:64px; border-radius:14px; background:rgba(180,100,30,.12); color:#B46B1A; display:flex; align-items:center; justify-content:center; font-family:var(--ff-display); font-size:22px; font-weight:800; flex-shrink:0; }
+.arjun-quote { font-size:var(--fs-body); font-style:italic; color:var(--text-2); line-height:1.8; margin-bottom:var(--sp-3); border-left:3px solid var(--accent-border); padding-left:var(--sp-4); }
+.co-tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:var(--sp-3); }
+.co-tag { font-family:var(--ff-mono); font-size:var(--fs-micro); padding:3px 9px; background:var(--bg); border:1px solid var(--border); border-radius:20px; color:var(--text-3); letter-spacing:.06em; }
+.bottom-cta { background:var(--text-1); padding:72px 32px; text-align:center; }
+.bottom-cta-h { font-family:var(--ff-display); font-size:clamp(24px,4vw,38px); font-weight:800; color:#fff; margin-bottom:var(--sp-3); letter-spacing:-.01em; line-height:1.15; }
+.bottom-cta-sub { font-size:var(--fs-body-sm); color:rgba(255,255,255,.45); margin-bottom:var(--sp-6); font-family:var(--ff-mono); letter-spacing:.04em; }
+.btn-hero-inv { font-family:var(--ff-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; font-weight:600; background:#fff; color:var(--text-1); border:none; border-radius:var(--r-sm); padding:14px 32px; cursor:pointer; transition:all .15s; }
+.btn-hero-inv:hover { background:var(--surface); transform:translateY(-1px); }
+@media (max-width:600px) {
+  .landing-nav { padding:16px 20px; }
+  .landing-hero { padding:48px 20px 40px; }
+  .preview-section,.arjun-section { padding-left:16px; padding-right:16px; }
+  .differ-section { padding:40px 16px; }
+  .differ-grid { grid-template-columns:1fr; }
+  .arjun-full-card { flex-direction:column; gap:16px; }
+  .bottom-cta { padding:48px 20px; }
 }
 `;
 document.head.appendChild(s);
@@ -635,8 +766,30 @@ Respond ONLY in JSON (no markdown, no preamble):
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 5 — PRIMITIVES
+// SECTION 4B — ANIMATION HOOKS + PRIMITIVES
 // ─────────────────────────────────────────────────────────────────────────────
+
+// Typewriter hook — returns {displayed, done}
+// chars/sec ~55 (fast enough to feel live, slow enough to read)
+function useTypewriter(text, enabled=true, charsPerSec=52) {
+  const [idx, setIdx] = useState(enabled ? 0 : text.length);
+  useEffect(()=>{
+    if(!enabled) { setIdx(text.length); return; }
+    if(idx >= text.length) return;
+    const delay = 1000 / charsPerSec;
+    const id = setTimeout(()=>setIdx(i=>i+1), delay);
+    return ()=>clearTimeout(id);
+  }, [idx, text, enabled]);
+  return { displayed: text.slice(0, idx), done: idx >= text.length };
+}
+
+// Screen-edge red flash — mounts, animates, unmounts
+function CostFlash({onDone}) {
+  useEffect(()=>{ const id=setTimeout(onDone, 580); return ()=>clearTimeout(id); },[]);
+  return html`<div class="cost-flash"/>`;
+}
+
+
 const go = (dispatch, screen) => dispatch({type:"GO", screen});
 
 function wordCount(s) { return s.trim()===''?0:s.trim().split(/\s+/).length; }
@@ -787,17 +940,27 @@ function MCQ({question, opts, correct, cons={}, hintId, onLean, onAny, isDC=fals
   const [sel, setSel] = useState(null);
   const [revealed, setRev] = useState(false);
   const [showFlash, setFlash] = useState(false);
+  const [showCostFlash, setCostFlash] = useState(false);
+  const [costFlashDone, setCostFlashDone] = useState(false);
   const [showHint, setHint] = useState(false);
   const isCorrect = sel === correct;
   const lock = () => {
     if(sel===null) return;
     setRev(true);
-    if(!isDC) setTimeout(()=>setFlash(true), 1400);
-    else setTimeout(()=>setFlash(true), 400);
+    // Wrong answer: fire edge flash immediately, then consequence card
+    if(sel !== correct && !isDC) {
+      setCostFlash(true);
+      setTimeout(()=>setFlash(true), 1400);
+    } else if(!isDC) {
+      setTimeout(()=>setFlash(true), 1400);
+    } else {
+      setTimeout(()=>setFlash(true), 400);
+    }
   };
   const handleHint = () => { setHint(true); if(onLean) onLean(); };
   return html`
     <div>
+      ${showCostFlash && !costFlashDone && html`<${CostFlash} onDone=${()=>{ setCostFlash(false); setCostFlashDone(true); }}/>`}
       <div class="mcq-q">${question}</div>
       <div class="mcq-opts">
         ${opts.map((opt,i)=>{
@@ -1034,95 +1197,295 @@ function BehaviourRadar({shaped}) {
     </div>`;
 }
 
+// Notification sends bar chart — Act4 data investigation reveal
+function NotifBarChart() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(()=>{ const id=setTimeout(()=>setMounted(true), 60); return ()=>clearTimeout(id); },[]);
+  const MAX = 891;
+  const rows = [
+    {label:"New users",    curr:892, prev:887, currStr:"892K", prevStr:"887K", delta:"+1%",  type:"neutral"},
+    {label:"Returning",    curr:412, prev:891, currStr:"412K", prevStr:"891K", delta:"−54%", type:"red", highlight:true},
+    {label:"Lapsed users", curr:124, prev:128, currStr:"124K", prevStr:"128K", delta:"−3%",  type:"neutral"},
+  ];
+  const pct = v => `${Math.round((v/MAX)*100)}%`;
+  return html`
+    <div class="bar-chart-wrap">
+      <div class="bar-chart-label">Notification sends by user segment — Tuesday vs last Tuesday</div>
+      ${rows.map((r,i)=>html`
+        <div key=${r.label} style="margin-bottom:16px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
+            <span style="font-family:var(--ff-mono);font-size:11px;font-weight:${r.highlight?600:400};color:${r.highlight?"var(--text-1)":"var(--text-2)"}">${r.label}</span>
+            <span class="bar-delta" style="color:${r.type==='red'?"var(--red)":"var(--text-3)"}">${r.delta}</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-family:var(--ff-mono);font-size:9px;color:var(--text-3);width:54px;flex-shrink:0">Last Tue</span>
+              <div class="bar-track"><div class="bar-fill neutral" style="width:${mounted?pct(r.prev):'0%'}"><span class="bar-fill-val">${r.prevStr}</span></div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-family:var(--ff-mono);font-size:9px;color:var(--text-3);width:54px;flex-shrink:0">This Tue</span>
+              <div class="bar-track" style="${r.highlight?"border-color:var(--red-border);background:var(--red-bg)":""}">
+                <div class="bar-fill ${r.type}" style="width:${mounted?pct(r.curr):'0%'};transition-delay:${i*120}ms"><span class="bar-fill-val">${r.currStr}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>`)}
+      <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--r-sm);margin-top:4px">
+        <span style="font-size:14px">◆</span>
+        <p style="font-size:var(--fs-body-sm);color:var(--text-1);line-height:1.55">Returning user notifications dropped <strong>−54%</strong>. New and lapsed users: normal. Signal is segment-specific — matches the DAU pattern exactly.</p>
+      </div>
+    </div>`;
+}
+
+// Tuesday baseline sparkline — 4 weeks, highlights the anomaly
+function TuesdaySparkline() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(()=>{ const id=setTimeout(()=>setMounted(true), 80); return ()=>clearTimeout(id); },[]);
+  const W=340, H=80, PAD=28;
+  const days = [{lbl:"Mar 18",v:2.41},{lbl:"Mar 25",v:2.38},{lbl:"Apr 1",v:2.43},{lbl:"Apr 8",v:2.1,anomaly:true}];
+  const maxV=2.55, minV=1.85;
+  const xPts = days.map((_,i)=> PAD + i*((W-PAD*2)/3));
+  const yPt = v => H - PAD - ((v-minV)/(maxV-minV))*(H-PAD*2);
+  const pathD = days.map((d,i)=>`${i===0?'M':'L'}${xPts[i].toFixed(1)},${yPt(d.v).toFixed(1)}`).join(' ');
+  return html`
+    <div class="sparkline-wrap">
+      <div class="sparkline-lbl">Tuesday DAU — 4-week view (millions)</div>
+      <svg width=${W} height=${H} viewBox="0 0 ${W} ${H}" style="overflow:visible;display:block;max-width:100%">
+        <line x1=${PAD} y1=${yPt(2.4).toFixed(1)} x2=${W-PAD} y2=${yPt(2.4).toFixed(1)}
+          stroke="var(--border)" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x=${PAD-4} y=${(yPt(2.4)+4).toFixed(1)} text-anchor="end" font-family="var(--ff-mono)" font-size="9" fill="var(--text-3)">2.4M</text>
+        <path d=${pathD} fill="none" stroke="var(--border-mid)" stroke-width="2"
+          stroke-dasharray="400" stroke-dashoffset=${mounted?"0":"400"}
+          style="transition:stroke-dashoffset 0.9s ease"/>
+        ${days.map((d,i)=>html`
+          <circle key=${i} cx=${xPts[i].toFixed(1)} cy=${yPt(d.v).toFixed(1)} r=${d.anomaly?5.5:3.5}
+            fill="${d.anomaly?'var(--red)':'var(--bg)'}" stroke="${d.anomaly?'var(--red)':'var(--border-mid)'}" stroke-width="1.5"
+            style="opacity:${mounted?1:0};transition:opacity .3s ease ${i*120}ms"/>
+          <text key=${"l"+i} x=${xPts[i].toFixed(1)} y=${(H-4).toFixed(1)} text-anchor="middle"
+            font-family="var(--ff-mono)" font-size="8.5" fill="${d.anomaly?'var(--red)':'var(--text-3)'}">
+            ${d.anomaly?"↓ Apr 8":d.lbl}
+          </text>`)}
+        ${mounted && html`<text x=${xPts[3].toFixed(1)} y=${(yPt(2.1)-9).toFixed(1)} text-anchor="middle"
+          font-family="var(--ff-mono)" font-size="9" font-weight="600" fill="var(--red)">2.1M</text>`}
+      </svg>
+    </div>`;
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // SECTION 6A — ORIENTATION SCREENS (Sprint 2B)
 // ─────────────────────────────────────────────────────────────────────────────
 
 function ScreenIntro({p1, dispatch}) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(()=>{ const id=setTimeout(()=>setMounted(true), 80); return ()=>clearTimeout(id); },[]);
+
+  const begin = () => go(dispatch, S1.PRIMER);
+
   return html`
-    <div class="aq">
-      <${Hdr} mid="The Analyst Flight Simulator" showLeans=${false}/>
-      <div class="main">
-        <div class="intro">
-          <div class="eyebrow">Analytiq · Case Study 01</div>
-          <h1 class="display">Learn to think.<br/>Not just answer.</h1>
-          <p style="font-size:var(--fs-body-sm);color:var(--text-3);margin-bottom:6px;font-family:var(--ff-mono);font-style:italic">
-            For analysts who want to think like seniors — not just pass quizzes.
-          </p>
-          <p style="font-size:var(--fs-body-sm);color:var(--text-3);margin-bottom:var(--sp-5);font-family:var(--ff-mono)">
-            Estimated time: 35–45 min · Phase 1 of 3 · No account needed
-          </p>
-          <div class="orient-card mb" style="max-width:480px;text-align:left">
-            <p class="body-sm">A Swiggy PM will message you. <strong>DAU dropped 12% WoW.</strong> You have decisions to make. Every one has a consequence.</p>
-            <p class="body-sm mt-sm">Senior analysts think in a specific sequence. This simulator shows you that sequence — by making you feel the cost of not following it.</p>
+    <div class="landing">
+
+      <!-- NAV -->
+      <nav class="landing-nav">
+        <div class="landing-wordmark">Analytiq</div>
+        <div class="landing-nav-right">Case Study 01 · Swiggy DAU Drop</div>
+      </nav>
+
+      <!-- HERO -->
+      <div class="landing-hero" style="opacity:${mounted?1:0};transform:${mounted?'translateY(0)':'translateY(12px)'};transition:opacity .5s ease,transform .5s ease">
+        <div class="landing-kicker">
+          <div class="landing-kicker-dot"/>
+          The Analyst Flight Simulator
+        </div>
+        <h1 class="landing-h1">
+          Most analysts memorise.<br/>
+          <em>Senior analysts think.</em>
+        </h1>
+        <p class="landing-sub">
+          A Swiggy PM just messaged you. DAU is down 12%. You have until 5pm.
+          Every decision you make plays out in real time — with real consequences.
+          This is how senior analytical thinking is actually built.
+        </p>
+        <div class="landing-cta-row">
+          <button class="btn-hero" onClick=${begin}>
+            Start Phase 1 — Free →
+          </button>
+          <button class="btn btn-g" onClick=${()=>go(dispatch,S1.HOW)}>How it works</button>
+        </div>
+        <div class="landing-meta">
+          No account needed <span>·</span> ~40 minutes <span>·</span> Phase 1 of 3
+        </div>
+      </div>
+
+      <!-- PRODUCT PREVIEW -->
+      <div class="preview-section" style="opacity:${mounted?1:0};transition:opacity .6s ease .15s">
+        <div class="preview-label">A glimpse of what you're walking into</div>
+        <div class="preview-card">
+          <div class="preview-bar">
+            <div class="preview-dots">
+              <div class="preview-dot" style="background:#FF5F57"/>
+              <div class="preview-dot" style="background:#FEBC2E"/>
+              <div class="preview-dot" style="background:#28C840"/>
+            </div>
+            <div class="preview-bar-title">#analytics-escalations · Slack</div>
           </div>
-          <div class="phase-grid">
-            ${[["1","Phase 1","Learn","~40 min",true],["2","Phase 2","Practice","~30 min",false],["3","Phase 3","Perform","25 min",false]].map(([n,ph,name,time,active])=>html`
-              <div key=${ph} class="phase-card ${active?'active':''}">
-                <div class="pc-lbl">${ph}</div>
-                <div class="pc-name">${name}</div>
-                <div class="pc-lock">${active?"":"🔒 Unlocks after Phase 1"}</div>
-              </div>`)}
-          </div>
-          <div class="row" style="justify-content:center;gap:12px">
-            <button class="btn btn-p" onClick=${()=>go(dispatch,S1.PRIMER)}>Begin Phase 1 →</button>
-            <button class="btn btn-g" onClick=${()=>go(dispatch,S1.HOW)}>How does this work?</button>
+          <div class="preview-inner">
+            <div class="slack" style="margin-bottom:0;box-shadow:none;background:var(--bg)">
+              <div class="slack-ch">#analytics-escalations</div>
+              <div class="slack-row">
+                <div class="slack-av av-pm">PS</div>
+                <div>
+                  <div class="slack-name">Priya Sharma <span>[PM, Growth] · 9:07am</span></div>
+                  <div class="slack-txt">Hey — just got flagged by leadership. Our DAU dropped 12% WoW as of yesterday. Started Tuesday. No product deploys that day. Need a root cause and a recommendation by 5pm. Can you take this?</div>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:14px;padding:12px 16px;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:var(--r-md)">
+              <div style="font-family:var(--ff-mono);font-size:var(--fs-micro);color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Your first decision</div>
+              <div style="font-size:var(--fs-body-sm);color:var(--text-1);font-weight:500">Before you open any dashboard or pull any data, what is your first move?</div>
+              <div style="display:flex;flex-direction:column;gap:6px;margin-top:10px">
+                ${["Pull the DAU trend for the last 30 days","Ask Priya what exactly DAU means","Check the engineering deploy log","Look at competitor activity this week"].map((opt,i)=>html`
+                  <div key=${i} style="display:flex;gap:10px;align-items:center;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);font-size:var(--fs-body-sm);color:var(--text-2);cursor:default">
+                    <span style="font-family:var(--ff-mono);font-size:10px;color:var(--text-3)">${String.fromCharCode(65+i)}</span>
+                    <span>${opt}</span>
+                  </div>`)}
+              </div>
+              <div style="margin-top:10px;font-family:var(--ff-mono);font-size:var(--fs-micro);color:var(--text-3);font-style:italic">Only one answer builds on the right foundation. Wrong choices have consequences that play out in the story.</div>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- HOW IT DIFFERS -->
+      <div class="differ-section">
+        <div class="differ-inner">
+          <div class="differ-h">Not another quiz platform.</div>
+          <div class="differ-sub">Most analytics courses teach answers. This builds the thinking that generates them.</div>
+          <div class="differ-grid">
+            <div class="differ-card">
+              <div class="differ-tag bad">Every other course</div>
+              ${[
+                ["✗","Multiple choice questions with instant 'correct' feedback"],
+                ["✗","Lectures first, application never"],
+                ["✗","You memorise the framework. You can't apply it under pressure."],
+                ["✗","A score at the end. No signal on *where* your thinking breaks."],
+              ].map(([ico,txt])=>html`
+                <div class="differ-item"><span class="differ-item-ico" style="color:var(--text-3)">${ico}</span><span>${txt}</span></div>`)}
+            </div>
+            <div class="differ-card hl">
+              <div class="differ-tag good">Analytiq</div>
+              ${[
+                ["◆","Consequences, not corrections — wrong choices waste investigation hours in the story"],
+                ["◆","Case-first — you reason through a live PM escalation, no lecture before it"],
+                ["◆","Written gates — Arjun evaluates your actual reasoning, not keyword matching"],
+                ["◆","Behaviour fingerprint — you see exactly which of 8 senior patterns you demonstrated"],
+              ].map(([ico,txt])=>html`
+                <div class="differ-item"><span class="differ-item-ico" style="color:var(--accent)">${ico}</span><span>${txt}</span></div>`)}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARJUN -->
+      <div class="arjun-section">
+        <div class="arjun-full-card">
+          <div class="arjun-av-xl">AJ</div>
+          <div style="flex:1">
+            <div style="font-family:var(--ff-display);font-size:var(--fs-h3);font-weight:700;color:var(--text-1);margin-bottom:2px">Arjun Mehta</div>
+            <div style="font-family:var(--ff-mono);font-size:var(--fs-micro);color:var(--text-3);letter-spacing:.06em;margin-bottom:var(--sp-4)">Principal Analytics Mentor · 10+ years building analytics teams</div>
+            <p class="arjun-quote">
+              "The difference between a junior and a senior analyst isn't domain knowledge. It's the sequence of thinking. Juniors jump to data. Seniors clarify, decompose, then investigate. I've seen this pattern in hundreds of interviews. This simulator teaches the sequence — by making you feel the cost of skipping it."
+            </p>
+            <div class="co-tags">
+              <span class="co-tag">Flipkart</span>
+              <span class="co-tag">Swiggy</span>
+              <span class="co-tag">Razorpay</span>
+              <span class="co-tag">Built & led 4 analytics teams</span>
+              <span class="co-tag">Promoted 20+ analysts</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM CTA -->
+      <div class="bottom-cta">
+        <div class="bottom-cta-h">Ready to find out where<br/>your thinking actually breaks?</div>
+        <div class="bottom-cta-sub">Free · No account · ~40 minutes · Phase 1 of 3</div>
+        <button class="btn-hero-inv" onClick=${begin}>Start Phase 1 →</button>
+      </div>
+
     </div>`;
 }
 
 function ScreenHow({p1, dispatch}) {
-  const BDATA = [
-    ["1","Clarify before you investigate","Define the metric before touching any data."],
-    ["2","Establish baseline before declaring anomaly","Is this drop actually unusual? Check first."],
-    ["3","Decompose the metric before hypothesising","Break DAU into parts. Eliminate whole branches."],
-    ["4","Know your metric type","Volume vs. rate vs. ratio — each implies a different structure."],
-    ["5","Segment by user type first","New vs. returning vs. resurrected — before geography or platform."],
-    ["6","Rank hypotheses by probability AND testability","Not just 'what could cause this' — 'what do I test first.'"],
-    ["7","Verify correlation before calling root cause","Correlation is evidence. Not proof. Check recovery."],
-    ["8","Use domain knowledge to rank, not replace verification","Patterns help you prioritise. They never replace checking the data."],
-  ];
   return html`
     <div class="aq">
       <${Hdr} mid="How This Works" showLeans=${false}/>
       <div class="main">
         <div class="wrap">
           <div class="eyebrow">The System</div>
-          <h1 class="display" style="font-size:var(--fs-h1);margin-bottom:var(--sp-5)">Three phases. One progression.</h1>
+          <h1 class="display" style="font-size:var(--fs-h1);margin-bottom:var(--sp-2)">Three phases. One progression.</h1>
+          <p class="caption mb" style="margin-bottom:var(--sp-5)">Each phase removes a safety net. By Phase 3, you're flying solo.</p>
+
           <div class="phase-flow mb">
             ${[
-              {num:"01",title:"Phase 1 · Learn",sub:"Swiggy DAU Drop · Guided. Every choice has consequences. MCQs + written gates. Arjun reads your reasoning.",time:"~40 min",active:true,locked:false},
-              {num:"02",title:"Phase 2 · Practice",sub:"Meesho GMV Stagnation · You drive. Arjun coaches, never teaches. No MCQs. Max 3 hints. 3 gates.",time:"~30 min",active:false,locked:true},
-              {num:"03",title:"Phase 3 · Perform",sub:"Razorpay Payment Drop · No assistance. No hints. 25 min timer. Arjun scores you against the real FAANG bar.",time:"25 min timed",active:false,locked:true},
+              {num:"01",title:"Phase 1 · Learn",sub:"Swiggy DAU Drop",detail:"Guided. Every choice has consequences. MCQs + written gates.",time:"~40 min",active:true},
+              {num:"02",title:"Phase 2 · Practice",sub:"Meesho GMV Stagnation",detail:"You drive. Arjun coaches, never teaches. No MCQs. Max 3 hints.",time:"~30 min",locked:true},
+              {num:"03",title:"Phase 3 · Perform",sub:"Razorpay Payment Drop",detail:"No assistance. No hints. 25 min timer. Arjun scores you against the FAANG bar.",time:"25 min timed",locked:true},
             ].map(ph=>html`
               <div key=${ph.num} class="phase-row ${ph.active?'active-phase':ph.locked?'locked-phase':''}">
                 <div class="ph-num ${ph.locked?'ph-locked':''}">${ph.locked?'🔒':ph.num}</div>
-                <div>
-                  <div class="ph-title">${ph.title}</div>
-                  <div class="ph-sub">${ph.sub}</div>
+                <div style="flex:1">
+                  <div class="ph-title">${ph.title} <span style="font-weight:400;color:var(--text-3)">· ${ph.sub}</span></div>
+                  <div class="ph-sub">${ph.detail}</div>
                   <div class="ph-time">${ph.time}</div>
                 </div>
               </div>`)}
           </div>
-          <div class="orient-card mb">
-            <div class="clbl cd" style="margin-bottom:10px">Your Mentor: Arjun Mehta</div>
-            <p class="body-sm">Principal Analytics Mentor · Flipkart, Swiggy, Razorpay · 10+ years</p>
-            <p class="body-sm mt-sm">Arjun spent a decade building analytics teams at three of India's most rigorous product companies. He has promoted analysts from fresher to staff. He has seen every version of the mistakes you're about to make — and he knows exactly where they come from.</p>
-            <p class="body-sm mt-sm">In Phase 1, he reviews your written responses at each gate. In Phase 2, he coaches without giving answers. In Phase 3, he scores you against the real interview bar.</p>
+
+          <div class="arjun-profile">
+            <div class="arjun-av-lg">AJ</div>
+            <div class="arjun-meta">
+              <div class="arjun-meta-name">Arjun Mehta</div>
+              <div class="arjun-meta-title">Principal Analytics Mentor · Flipkart · Swiggy · Razorpay · 10+ years</div>
+              <div class="arjun-meta-bio">Arjun spent a decade building analytics teams at three of India's most rigorous product companies. He has promoted analysts from fresher to staff. He has seen every version of the mistakes you're about to make — and he knows exactly where they come from.</div>
+              <div class="arjun-role-row">
+                <span class="arjun-role-pill pill-1">Phase 1: Reviews your gates</span>
+                <span class="arjun-role-pill pill-2">Phase 2: Coaches, never tells</span>
+                <span class="arjun-role-pill pill-2">Phase 3: Silent examiner</span>
+              </div>
+            </div>
           </div>
-          <div class="orient-card mb">
-            <div class="clbl cd" style="margin-bottom:10px">How evaluation works</div>
-            <p class="body-sm"><strong>MCQs with consequences:</strong> Wrong choices play out in the story — wasted hours, dead ends, wrong recommendations. Nothing blocks you, but you feel the cost.</p>
-            <p class="body-sm mt-sm"><strong>Written gates:</strong> Arjun reads what you write and checks for genuine understanding — not memorised phrases. He is looking for evidence of reasoning, not correct keywords.</p>
-            <p class="body-sm mt-sm"><strong>Lean tokens:</strong> 3 tokens. Each hint costs 1. Senior bar = 0 leans. Your count is always visible. It's information, not punishment.</p>
+
+          <div class="card mb">
+            <div class="clbl cd" style="margin-bottom:12px">How evaluation works</div>
+            ${[
+              ["⚡","MCQs with consequences","Wrong choices play out in the story — wasted hours, dead ends, wrong recommendations. Nothing blocks you, but you feel the cost."],
+              ["◈","Written gates","Arjun reads what you write and checks for genuine reasoning — not memorised phrases. He is looking for evidence of thinking, not correct keywords."],
+              ["◇","Lean tokens","3 tokens. Each hint costs 1. Senior bar = 0 leans. Your count is always visible in the header. It's information, not punishment."],
+            ].map(([ico,title,desc])=>html`
+              <div class="eval-row">
+                <div class="eval-ico">${ico}</div>
+                <div class="eval-body">
+                  <div class="eval-title">${title}</div>
+                  <div class="eval-desc">${desc}</div>
+                </div>
+              </div>`)}
           </div>
-          <div class="orient-card mb">
+
+          <div class="card mb">
             <div class="clbl cd" style="margin-bottom:10px">The 8 behaviours you're developing</div>
-            <p class="body-sm mb">These are the thinking patterns that separate junior from senior analysts in interviews and on the job. You will demonstrate these — or you won't. The simulator shows you both.</p>
+            <p class="body-sm mb" style="margin-bottom:12px">These thinking patterns separate junior from senior analysts. You will demonstrate them — or you won't.</p>
             <div class="beh-grid">
-              ${BDATA.map(([n,name,desc])=>html`
+              ${[
+                ["1","Clarify before you investigate","Define the metric before touching any data."],
+                ["2","Establish baseline before declaring anomaly","Is this drop actually unusual? Check first."],
+                ["3","Decompose the metric before hypothesising","Break DAU into parts. Eliminate whole branches."],
+                ["4","Know your metric type","Volume vs. rate vs. ratio — each implies a different structure."],
+                ["5","Segment by user type first","New vs. returning vs. resurrected — before geography or platform."],
+                ["6","Rank hypotheses by probability AND testability","Not just 'what could cause this' — 'what do I test first.'"],
+                ["7","Verify correlation before calling root cause","Correlation is evidence. Not proof. Check recovery."],
+                ["8","Use domain knowledge to rank, not replace verification","Patterns help you prioritise. They never replace checking the data."],
+              ].map(([n,name,desc])=>html`
                 <div key=${n} class="beh-card">
                   <div class="beh-num">B${n}</div>
                   <div class="beh-name">${name}</div>
@@ -1130,6 +1493,7 @@ function ScreenHow({p1, dispatch}) {
                 </div>`)}
             </div>
           </div>
+
           <div class="row" style="justify-content:center">
             <button class="btn btn-p" onClick=${()=>go(dispatch,S1.PRIMER)}>Start Phase 1 →</button>
             <button class="btn btn-g" onClick=${()=>go(dispatch,S1.INTRO)}>← Back</button>
@@ -1271,6 +1635,10 @@ function SequentialReveal({slackNode, questionNode, autoAdvanceSec=0}) {
 function ScreenAct1({p1, dispatch}) {
   const [showYou, setShowYou] = useState(false);
   useEffect(()=>{ const id=setTimeout(()=>setShowYou(true), 600); return ()=>clearTimeout(id); },[]);
+
+  const priyaMsg = "Hey — just got flagged by leadership. Our DAU dropped 12% WoW as of yesterday. Started Tuesday. No product deploys that day that we know of. Need a root cause and a recommendation by 5pm. Can you take this?";
+  const { displayed: priyaTyped, done: priyaDone } = useTypewriter(priyaMsg, true, 48);
+
   const slackNode = html`
     <div class="slack">
       <div class="slack-ch">#analytics-escalations</div>
@@ -1278,7 +1646,9 @@ function ScreenAct1({p1, dispatch}) {
         <div class="slack-av av-pm">PS</div>
         <div>
           <div class="slack-name">Priya Sharma <span>[PM, Growth] · 9:07am</span></div>
-          <div class="slack-txt">Hey — just got flagged by leadership. Our DAU dropped 12% WoW as of yesterday. Started Tuesday. No product deploys that day that we know of. Need a root cause and a recommendation by 5pm. Can you take this?</div>
+          <div class="slack-txt">
+            ${priyaTyped}${!priyaDone ? html`<span class="tw-cursor"/>` : ''}
+          </div>
         </div>
       </div>
       ${!showYou && html`<div class="slack-row"><div class="slack-av av-you">Me</div><div><div class="slack-typing"><span/><span/><span/></div></div></div>`}
@@ -1326,10 +1696,7 @@ function ScreenAct1Gate({p1, dispatch}) {
       <div class="main">
         <div class="wrap">
           <div class="act-eyebrow">Act 1 · Gate</div>
-          <div class="card mb" style="margin-bottom:16px">
-            <div class="clbl cd" style="margin-bottom:4px">◈ Arjun is with you · Phase 1</div>
-            <p class="body-sm">Arjun has seen this exact moment play out in hundreds of investigations. He's going to check whether you understand the principle — not whether you remember the explanation you just read.</p>
-          </div>
+          <div class="gate-context">9:08am · You've received Priya's message · Metric not yet defined · No data pulled</div>
           <${Gate}
             question="Your PM just sent a follow-up: 'What does our DAU look like vs last Tuesday?' You haven't clarified the metric yet. What do you reply — and why that specific reply?"
             criteria=${[
@@ -1375,8 +1742,9 @@ function ScreenAct2Win({p1, dispatch}) {
           ${revealed && html`
             <div class="card-g mt anim">
               <div class="clbl cg">◆ 30-day baseline output</div>
-              <p class="body-sm mt-sm">Three prior Tuesdays are normal. <strong>This Tuesday is the anomaly.</strong></p>
-              <p class="body-sm mt-sm">Normal Tuesday DAU: ~2.4M · This Tuesday: ~2.1M · Drop: <strong style="color:var(--red)">300K users</strong></p>
+              <${TuesdaySparkline}/>
+              <p class="body-sm mt-sm">Three prior Tuesdays: normal range 2.38–2.43M. <strong>This Tuesday: 2.1M — the anomaly is confirmed.</strong></p>
+              <p class="body-sm mt-sm" style="color:var(--red)">Drop: <strong>~300K users (−12%)</strong> vs Tuesday baseline.</p>
               <div class="row mt">
                 <button class="btn btn-p" onClick=${()=>go(dispatch,S1.ACT2_DECOMP)}>Continue →</button>
               </div>
@@ -1432,6 +1800,7 @@ function ScreenAct2Gate({p1, dispatch}) {
       <div class="main">
         <div class="wrap">
           <div class="act-eyebrow">Act 2 · Gate</div>
+          <div class="gate-context">Decomposition complete · Returning users −16% · New users flat · Resurrected +2%</div>
           <${Gate}
             question="The decomposition showed returning users down 16%, new users flat. Name two root cause categories you can immediately eliminate — and explain why the decomposition lets you eliminate them."
             criteria=${[
@@ -1523,21 +1892,26 @@ function ScreenAct3Rank({p1, dispatch}) {
             onAny=${(_,isCorrect)=>{ if(isCorrect) dispatch({type:"SHAPE",bs:["B6"]}); setRevealed(true); }}/>
           ${revealed && html`
             <div class="card-o mt anim">
-              <div class="clbl co">◆ Ranking framework — save this</div>
-              <p style="font-size:var(--fs-micro);color:var(--text-3);font-family:var(--ff-mono);margin-bottom:8px">Rank by: Probability × Testability</p>
-              ${[
-                ["Re-engagement trigger","High","Immediate","Rank 1",true],
-                ["Supply issue","Med-High","30 mins","Rank 2",false],
-                ["App experience","Medium","Immediate","Rank 3",false],
-                ["External suppressor","Low","Immediate","Rank 4",false],
-                ["Competitive pull","Low","Slow","Rank 5",false],
-              ].map(([n,p,t,r,top])=>html`
-                <div key=${n} class="fw-row ${top?'fw-top':''}">
-                  <span>${n}</span>
-                  <span style="color:${top?'var(--green)':'inherit'}">${p}</span>
-                  <span>${t}</span>
-                  <span class="fw-rank">${r}</span>
-                </div>`)}
+              <div class="clbl co" style="margin-bottom:6px">◆ Priority matrix — Probability × Testability</div>
+              <div class="priority-matrix">
+                <div class="pm-header">
+                  <span>Hypothesis</span><span>Probability</span><span>Testability</span><span>Rank</span>
+                </div>
+                ${[
+                  ["Re-engagement trigger","high","High","fast","Fast","#1 ◆",true],
+                  ["Supply issue","med","Med-High","med","~30 min","#2",false],
+                  ["App experience","med","Medium","fast","Fast","#3",false],
+                  ["External suppressor","low","Low","fast","Fast","#4",false],
+                  ["Competitive pull","low","Low","slow","Slow","#5",false],
+                ].map(([name,pCls,pLbl,tCls,tLbl,rank,top])=>html`
+                  <div key=${name} class="pm-row ${top?'pm-top':''}">
+                    <span class="pm-name">${name}</span>
+                    <span><span class="pm-badge ${pCls}">${pLbl}</span></span>
+                    <span><span class="pm-badge ${tCls}">${tLbl}</span></span>
+                    <span class="pm-rank">${rank}</span>
+                  </div>`)}
+              </div>
+              <p class="body-sm mt-sm">Re-engagement trigger wins on both dimensions: ~34% of opens come from notifications (high probability) and notification logs are immediate (high testability).</p>
               <div class="row mt">
                 <button class="btn btn-p" onClick=${()=>go(dispatch,S1.ACT3_GATE)}>Continue →</button>
               </div>
@@ -1555,6 +1929,7 @@ function ScreenAct3Gate({p1, dispatch}) {
       <div class="main">
         <div class="wrap">
           <div class="act-eyebrow">Act 3 · Gate</div>
+          <div class="gate-context">Transfer test · New domain · Same framework · Arjun is checking whether you can apply the ranking logic — not recall it</div>
           <${Gate}
             question="New context — E-commerce product (not food delivery). Three hypotheses: (A) Marketing spend dropped 30% this week. (B) Push notification delivery rate fell to 40%. (C) App store rating dropped from 4.2 to 3.8. Rank them and explain your reasoning."
             criteria=${[
@@ -1600,14 +1975,8 @@ function ScreenAct4Seg({p1, dispatch}) {
           ${revealed && !showTable && html`<div class="caption mt" style="color:var(--text-3);font-style:italic">Querying notification sends by user segment...</div>`}
           ${showTable && html`
             <div class="card-g mt anim">
-              <div class="clbl cg">◆ Notification sends by user segment</div>
-              <${DataTable} animate=${true} grid="1.4fr 1fr 1fr 1fr"
-                cols=${["Segment","Sent Tue","Last Tue","Change"]}
-                rows=${[
-                  {cells:[{v:"New users"},{v:"892K"},{v:"887K"},{v:"+1%",cls:"pos"}]},
-                  {cells:[{v:"Returning"},{v:"412K"},{v:"891K"},{v:"-54%",cls:"neg"}]},
-                  {cells:[{v:"Lapsed"},{v:"124K"},{v:"128K"},{v:"-3%",cls:"neu"}]},
-                ]}/>
+              <div class="clbl cg">◆ Notification sends by user segment — Tuesday comparison</div>
+              <${NotifBarChart}/>
               <p class="body-sm mt-sm">Returning user notification volume dropped <strong>54% on Tuesday</strong>. Matches exactly the segment showing the DAU drop.</p>
               <div class="row mt">
                 <button class="btn btn-p" onClick=${()=>go(dispatch,S1.ACT4_INTERP)}>Continue →</button>
@@ -1626,8 +1995,12 @@ function ScreenAct4Interp({p1, dispatch}) {
       <div class="main">
         <div class="wrap">
           <div class="scene-lbl">Decision 1.7 · Interpretation</div>
-          <div class="card-r mb" style="margin-bottom:12px">
-            <div class="clbl cr">⚡ Most important decision in the case — slow down</div>
+          <div style="background:var(--red-bg);border:1.5px solid var(--red-border);border-radius:var(--r-md);padding:14px 16px;margin-bottom:14px;display:flex;gap:12px;align-items:flex-start">
+            <div style="font-size:20px;flex-shrink:0">⚡</div>
+            <div>
+              <div style="font-family:var(--ff-display);font-size:13px;font-weight:700;color:var(--red);margin-bottom:3px">Most important decision in the case — slow down.</div>
+              <div style="font-size:var(--fs-body-sm);color:var(--text-2);line-height:1.6">You have a strong signal. The next decision determines whether you call root cause correctly or make the most common senior analyst error.</div>
+            </div>
           </div>
           <${MCQ} key="act4_interp"
             question="The output shows returning user notification volume dropped 54% on Tuesday. What does this tell you?"
@@ -1703,33 +2076,58 @@ function ScreenAct4Confirm({p1, dispatch}) {
 
 // BLOCKING FIX: Root cause as full screen — emotional peak of Phase 1
 function ScreenRootConfirm({p1, dispatch}) {
+  const [step, setStep] = useState(0);
+  useEffect(()=>{
+    // Reveal each node + arrow with stagger: 0, 500, 900, 1400, 1800, 2300ms
+    const delays = [200, 600, 1000, 1500, 1900, 2400];
+    const timers = delays.map((d,i)=>setTimeout(()=>setStep(i+1), d));
+    return ()=>timers.forEach(clearTimeout);
+  },[]);
+
+  const nodes = [
+    "CRM config error",
+    "54% fewer notifications sent",
+    "Returning users not triggered",
+    "DAU drops 16% in segment",
+  ];
+
   return html`
     <div class="aq">
       <${Hdr} mid="Root Cause Confirmed" leans=${p1.leans} cardsEarned=${p1.cardsEarned}/>
       <div class="main">
         <div class="root-screen">
-          <div class="root-badge">◆</div>
-          <div class="root-confirmed-label">Root cause confirmed · High confidence</div>
-          <h2 class="h2" style="margin-bottom:var(--sp-4)">Returning user notification volume dropped 54% Tuesday — CRM send-limit config error.</h2>
+          <div class="root-badge" style="opacity:${step>=1?1:0};transition:opacity .4s ease">◆</div>
+          <div class="root-confirmed-label" style="opacity:${step>=1?1:0};transition:opacity .4s ease .1s">Root cause confirmed · High confidence</div>
+          <h2 class="h2" style="margin-bottom:var(--sp-4);opacity:${step>=1?1:0};transition:opacity .4s ease .2s">
+            Returning user notification volume dropped 54% Tuesday — CRM send-limit config error.
+          </h2>
           <div class="mechanism" style="max-width:520px">
-            <div class="clbl cd" style="margin-bottom:10px">The mechanism</div>
-            <div class="mechanism-flow">
-              <div class="mechanism-step">CRM config error</div>
-              <div class="mechanism-arrow">→</div>
-              <div class="mechanism-step">54% fewer notifications sent</div>
-              <div class="mechanism-arrow">→</div>
-              <div class="mechanism-step">Returning users not triggered</div>
-              <div class="mechanism-arrow">→</div>
-              <div class="mechanism-step">DAU drops 16% in segment</div>
+            <div class="clbl cd" style="margin-bottom:14px;opacity:${step>=1?1:0};transition:opacity .3s ease .3s">The mechanism</div>
+            <div class="mechanism-flow" style="align-items:center;flex-wrap:nowrap">
+              ${nodes.map((node, i) => {
+                const nodeStep = i * 2 + 2;    // nodes at steps 2,4,6,8
+                const arrowStep = i * 2 + 3;   // arrows at steps 3,5,7
+                return html`
+                  <div key=${i} style="display:flex;align-items:center;gap:0">
+                    <div class="mechanism-step mech-node ${step >= nodeStep ? 'visible' : ''}"
+                      style="background:${step>=nodeStep?'var(--accent-bg)':'var(--surface)'};border-color:${step>=nodeStep?'var(--accent-border)':'var(--border)'}">
+                      ${node}
+                    </div>
+                    ${i < nodes.length - 1 && html`
+                      <div class="mechanism-arrow mech-arrow-animated ${step >= arrowStep ? 'visible' : ''}">→</div>`}
+                  </div>`;
+              })}
             </div>
-            <div class="confidence-bar">◆ Confirmed by proportional recovery · Wed/Thu DAU +14%/+3%</div>
+            <div class="confidence-bar" style="opacity:${step>=6?1:0};transition:opacity .4s ease">
+              ◆ Confirmed by proportional recovery · Wed/Thu DAU +14%/+3%
+            </div>
           </div>
-          <div class="card mt-sm" style="text-align:left;max-width:520px;margin-top:var(--sp-4)">
+          <div class="card mt-sm" style="text-align:left;max-width:520px;margin-top:var(--sp-4);opacity:${step>=6?1:0};transition:opacity .4s ease .2s">
             <div class="clbl cd" style="margin-bottom:6px">Owner &amp; timeline</div>
             <p class="body-sm"><strong>Owner:</strong> CRM / Growth Engineering</p>
             <p class="body-sm mt-sm"><strong>Finding shared.</strong> Priya has the root cause. CRM team is on it.</p>
           </div>
-          <div class="row mt" style="justify-content:center">
+          <div class="row mt" style="justify-content:center;opacity:${step>=6?1:0};transition:opacity .4s ease .4s">
             <button class="btn btn-p" onClick=${()=>go(dispatch,S1.ACT4_GATE)}>Now communicate this to your PM →</button>
           </div>
         </div>
@@ -1745,6 +2143,7 @@ function ScreenAct4Gate({p1, dispatch}) {
       <div class="main">
         <div class="wrap">
           <div class="act-eyebrow">Act 4 · Gate</div>
+          <div class="gate-context">Root cause confirmed · CRM config error · Notification drop → DAU drop · Recovery pattern verified</div>
           <${Gate}
             question="A colleague shows you two metrics moving together and says 'this proves X causes Y.' What's the one question you ask before agreeing?"
             criteria=${[
@@ -1854,6 +2253,7 @@ function ScreenAct5Gate({p1, dispatch}) {
       <div class="main">
         <div class="wrap">
           <div class="act-eyebrow">Act 5 · Gate</div>
+          <div class="gate-context">Domain knowledge trap · You applied a one-off pattern to a recurring city-specific problem · Arjun is checking if you know the difference</div>
           <${Gate}
             question="A colleague tells you Tuesday drops are usually notification-driven. They then ask you about a different metric dropping every Tuesday for a month. Do you apply the same hypothesis first? Why or why not?"
             criteria=${[
@@ -1934,9 +2334,21 @@ function ScreenAct6Eval({p1, dispatch}) {
       <${Hdr} mid="Act 6 · Arjun's Evaluation" leans=${p1.leans} cardsEarned=${p1.cardsEarned}/>
       <div class="main">
         <div class="wrap">
-          <div class="act-eyebrow">Act 6 · Arjun is reading your investigation</div>
-          <div class="answered-txt" style="margin-bottom:var(--sp-3)">
-            ${p1.blindAns||"(no answer recorded)"}
+          <div class="act-eyebrow">Act 6 · Independent investigation — Arjun is reading</div>
+          <div class="eval-ceremony">
+            <div class="eval-ceremony-av">AJ</div>
+            <div class="eval-ceremony-title">Arjun Mehta</div>
+            <div class="eval-ceremony-sub">Principal Analytics Mentor · reviewing your independent investigation</div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:var(--sp-3);font-size:var(--fs-caption);color:var(--text-3);font-family:var(--ff-mono)">
+              <div class="reading-dot"/>
+              <div class="reading-dot"/>
+              <div class="reading-dot"/>
+              <span style="margin-left:4px">reading</span>
+            </div>
+          </div>
+          <div class="card mb" style="border-left:3px solid var(--accent);border-radius:0 var(--r-md) var(--r-md) 0">
+            <div class="clbl cd" style="margin-bottom:4px">Your investigation</div>
+            <p class="body-sm" style="font-style:italic;line-height:1.8">${p1.blindAns||"(no answer recorded)"}</p>
           </div>
           <${ArjunEval}
             question="A PM at Swiggy says: 'Our average order value dropped 8% this week. Started Wednesday. No pricing changes.' What are your first moves? The student didn't receive any structural prompt — evaluate whether they independently applied the analytical framework."
@@ -2150,11 +2562,29 @@ function ScreenDebrief({p1, dispatch}) {
           </div>
 
           <div class="card mb">
-            <div class="clbl cd" style="margin-bottom:6px">Lean count · ${p1.leans} lean${p1.leans!==1?"s":""} used</div>
+            <div class="clbl cd" style="margin-bottom:10px">Lean count · ${p1.leans} lean${p1.leans!==1?"s":""} used</div>
+            <div class="lean-vis">
+              <div class="lean-vis-col">
+                <div class="lean-vis-lbl">Your session</div>
+                <div class="lean-dots-row">
+                  ${[0,1,2].map(i=>html`<div key=${i} class="lean-d ${i < p1.leans ? 'used' : 'empty'}"/>`)}
+                  ${p1.leans > 3 && html`<span style="font-family:var(--ff-mono);font-size:10px;color:var(--accent);margin-left:2px">+${p1.leans-3}</span>`}
+                </div>
+              </div>
+              <div style="font-family:var(--ff-mono);font-size:var(--fs-micro);color:var(--border-mid);align-self:flex-end;padding-bottom:2px">vs</div>
+              <div class="lean-vis-col">
+                <div class="lean-vis-lbl">Senior bar</div>
+                <div class="lean-dots-row">
+                  ${[0,1,2].map(i=>html`<div key=${i} class="lean-d ideal" style="opacity:${i===0?1:.2}"/>`)}
+                </div>
+              </div>
+            </div>
             <p class="body-sm">
-              ${p1.leans===0?"You drove this yourself. Senior analyst standard.":
-                p1.leans<=2?`You used guidance ${p1.leans} time${p1.leans>1?"s":""}. Senior analysts typically need 0–1 on this case.`:
-                `You leaned on guidance ${p1.leans} times. Phase 2 will show you what independent thinking feels like under no safety net.`}
+              ${p1.leans===0
+                ? html`<span style="color:var(--green);font-weight:600">Senior analyst standard.</span> You drove this yourself — no guidance needed.`
+                : p1.leans<=2
+                ? `You used guidance ${p1.leans} time${p1.leans>1?"s":""}. Senior analysts typically need 0–1 on this case. Close.`
+                : `You leaned ${p1.leans} times. Phase 2 has no hints. You'll feel what independent thinking requires under no safety net.`}
             </p>
           </div>
 
